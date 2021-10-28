@@ -16,18 +16,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-        
+    
     - name: Restore dependencies
-      run: dotnet restore
-      
+      run: dotnet restore Localization.WPF
+    
     - name: Build
-      run: dotnet build --no-restore
-      
-    - name: Test
-      run: dotnet test --no-build -v m
-      
+      run: dotnet build Localization.WPF --no-restore
+    
     - name: Packing
-      run: dotnet pack -c Release 
+      run: dotnet pack RLocalization.WPF -c Release
       
     - name: Publish GitHub
       run: |
