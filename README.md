@@ -30,7 +30,7 @@ Text="{Loc Hello_world}"
 
 5. Настроить смену языка при смене локализации
 
-Это можно сделать при старте приложения в App.xaml.cs
+Это можно сделать при старте приложения в [App.xaml.cs](https://github.com/Platonenkov/Localization.WPF/blob/dev/Tests/Localization.WPF.TestWPF/App.xaml.cs)
 
 ![image](https://user-images.githubusercontent.com/44946855/139260546-b9528dc3-eb34-4633-b5e0-c03aee896144.png)
 
