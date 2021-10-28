@@ -1,0 +1,14 @@
+﻿<Application x:Class="Localization.WPF.TestWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:testWpf1="clr-namespace:Localization.WPF.TestWPF"
+             StartupUri="MainWindow.xaml" 
+             >
+    <Application.Resources>
+         <ResourceDictionary>
+
+            <testWpf1:ServiceLocator x:Key="Locator"/>
+
+         </ResourceDictionary>
+    </Application.Resources>
+</Application>

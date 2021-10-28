@@ -1,0 +1,33 @@
+name: .NET
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore RRJ-Express.Localization
+    
+    - name: Build
+      run: dotnet build RRJ-Express.Localization --no-restore
+    
+    - name: Test
+      run: dotnet test Tests\RRJ-Express.Localization.Tests
+
+    - name: Packing
+      run: dotnet pack RRJ-Express.Localization -c Release
+      
+    - name: Publish
+      run: dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://nuget.pkg.github.com/SCAC-Irkut/index.json -k ${{secrets.GITHUB_TOKEN}}
