@@ -24,7 +24,7 @@ jobs:
       run: dotnet build Localization.WPF --no-restore
     
     - name: Packing
-      run: dotnet pack RLocalization.WPF -c Release
+      run: dotnet pack Localization.WPF -c Release
       
     - name: Publish GitHub
       run: |
