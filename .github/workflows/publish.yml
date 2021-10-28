@@ -1,4 +1,4 @@
-name: .NET
+name: NuGet package
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -16,18 +16,25 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    
+        
     - name: Restore dependencies
-      run: dotnet restore RRJ-Express.Localization
-    
-    - name: Build
-      run: dotnet build RRJ-Express.Localization --no-restore
-    
-    - name: Test
-      run: dotnet test Tests\RRJ-Express.Localization.Tests
-
-    - name: Packing
-      run: dotnet pack RRJ-Express.Localization -c Release
+      run: dotnet restore
       
-    - name: Publish
-      run: dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://nuget.pkg.github.com/SCAC-Irkut/index.json -k ${{secrets.GITHUB_TOKEN}}
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test
+      run: dotnet test --no-build -v m
+      
+    - name: Packing
+      run: dotnet pack -c Release 
+      
+    - name: Publish GitHub
+      run: |
+        dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
+        dotnet nuget push "**/*.snupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
+      
+    - name: Publish NuGet
+      run: |
+        dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }} 
+        dotnet nuget push "**/*.snupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }}
